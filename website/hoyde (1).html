@@ -1,0 +1,29 @@
+<html><head>
+    <style>
+        html,body {height: 100%;}
+        h1 { font-size: 80px; }
+    </style>
+    <script>
+        function uh(cm) {
+            document.querySelector("#hooman").height = cm;
+            document.querySelector("#cm").innerText = cm;
+        }
+// Create WebSocket connection.
+const socket = new WebSocket("ws://localhost:8765");
+
+// Listen for messages
+socket.addEventListener("message", (event) => {
+  uh(parseInt(event.data) / 10);
+});
+    </script>
+</head><body>
+    <h1 style="text-align: center">Hvor høy/lav er jeg?</h1>
+    <table width="100%">
+    <tbody><tr>
+        <td height="600px" width="100%" style="min-height: 600px">
+    <img id="hooman" src="https://www.svgrepo.com/show/76394/standing-human-body-silhouette.svg" height="50" width="100%">
+        </td>
+    </tr>
+    </tbody></table>
+    <h2 style="text-align: center"><span id="cm"></span> cm</h2>
+</body></html>
