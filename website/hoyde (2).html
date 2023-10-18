@@ -1,0 +1,35 @@
+<html><head>
+    <style>
+        html,body {height: 100%;}
+        h1 { font-size: 80px; }
+    </style>
+    <script>
+        function uh(size, cm) {
+            document.querySelector("#hooman").height = size;
+            document.querySelector("#cm").innerText = cm;
+        }
+// Create WebSocket connection.
+const socket = new WebSocket("ws://localhost:8765");
+
+// Listen for messages
+socket.addEventListener("message", (event) => {
+  let inCm = parseInt(parseInt(event.data) / 10);
+  // 50-500
+  if (inCm > 250) { inCm = 250; }
+  // 50-250
+  inCm = 250 - inCm; // speilvend
+  size = inCm * 2; 
+  uh(size, inCm);
+});
+    </script>
+</head><body>
+    <h1 style="text-align: center">Hvor høy/lav er jeg?</h1>
+    <table width="100%">
+    <tbody><tr>
+        <td height="500px" width="100%" style="min-height: 500px">
+    <img id="hooman" src="https://www.svgrepo.com/show/76394/standing-human-body-silhouette.svg" height="50" width="100%">
+        </td>
+    </tr>
+    </tbody></table>
+    <h2 style="text-align: center"><span id="cm"></span> cm</h2>
+</body></html>
